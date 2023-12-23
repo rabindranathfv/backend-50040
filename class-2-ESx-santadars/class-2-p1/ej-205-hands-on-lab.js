@@ -51,7 +51,22 @@ class TicketManager {
     this.eventos[eventoIndex].participantes.push(idUsuario);
   }
 
-  ponerEventoEnGira(idEvento, nuevaLocalidad, nuevaFecha) {}
+  ponerEventoEnGira = (idEvento, nuevaLocalidad, nuevaFecha) => {
+    const eventoIndex = this.eventos.findIndex((e) => e.id === idEvento);
+    if (eventoIndex === -1) {
+      console.log("Evento no encontrado");
+      return;
+    }
+    const evento = this.eventos[eventoIndex];
+    const newEvento = {
+      ...evento,
+      lugar: nuevaLocalidad,
+      fecha: nuevaFecha,
+      id: this.eventos[this.eventos.length - 1].id + 1,
+      participantes: [],
+    };
+    this.eventos.push(newEvento);
+  };
 }
 
 const manejadorEventos = new TicketManager();
