@@ -55,6 +55,12 @@ const squareArea = async (side) => {
   });
 };
 
+const returnValues = async (side1, side2) => {
+  return new Promise((resolve, reject) => {
+    resolve({ solution: side1, solution2: side2 });
+  });
+};
+
 const mainAsync = async () => {
   try {
     const rect = await rectangulArea(3, 2);
@@ -83,6 +89,11 @@ const mainAsync = async () => {
     console.log(
       "🚀 ~ file: promises-async-await.js:82 ~ mainAsync ~ cuadradoArea2:",
       cuadradoArea1
+    );
+    const resp = await returnValues(2, 10);
+    console.log(
+      "🚀 ~ file: promises-async-await.js:94 ~ mainAsync ~ resp:",
+      resp
     );
   } catch (error) {
     console.log(
