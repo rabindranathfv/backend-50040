@@ -1,0 +1,10 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+div {
+  border: 1px solid green;
+}
