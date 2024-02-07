@@ -4,8 +4,8 @@ const router = Router();
 
 router.get("/", (req, res) => {
   res.render("register", {
-    style: "index.css",
-    name: 'test'
+    style: "style",
+    name: "test",
   });
 });
 
