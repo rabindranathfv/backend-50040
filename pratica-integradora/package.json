@@ -1,0 +1,33 @@
+{
+  "name": "backend-50040",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon ./src/index",
+    "start:test": "nodemon ./src/index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rabindranathfv/backend-50040.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rabindranathfv/backend-50040/issues"
+  },
+  "homepage": "https://github.com/rabindranathfv/backend-50040#readme",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "express-routemap": "^1.6.0",
+    "mongoose": "^8.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
