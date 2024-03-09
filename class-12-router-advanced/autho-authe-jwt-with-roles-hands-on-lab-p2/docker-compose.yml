@@ -4,12 +4,12 @@ version: "3.0"
 services:
   mongo_strategy: # name of BD service
     image: mongo
-    container_name: mongo_db_passport_jwt
+    container_name: mongo_db_auth_handslab
     ports:
       - 27017:27017
     volumes:
-      - mongostrategyjwt:/data/configdb
-      - mongostrategyjwt:/data/db
+      - mongoauthhandslab:/data/configdb
+      - mongoauthhandslab:/data/db
     # restart: always
 
 networks:
@@ -18,4 +18,4 @@ networks:
     driver: bridge
 
 volumes:
-  mongostrategyjwt:
+  mongoauthhandslab:
