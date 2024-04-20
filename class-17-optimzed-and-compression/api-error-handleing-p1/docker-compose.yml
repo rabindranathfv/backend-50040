@@ -2,15 +2,15 @@ version: "3.0"
 
 # Services to run
 services:
-  mongo_strategy: # name of BD service
+  mongo_db: # name of BD service
     image: mongo
-    container_name: mongo_layer_api_mocks
+    container_name: mongo_api_errors
     ports:
       - 27017:27017
     volumes:
-      - mongoapimocks:/data/configdb
-      - mongoapimocks:/data/db
-    # restart: always
+      - apierros:/data/configdb
+      - apierros:/data/db
+    restart: always
 
 networks:
   nodejs-network:
@@ -18,4 +18,4 @@ networks:
     driver: bridge
 
 volumes:
-  mongoapimocks:
+  apierros:
