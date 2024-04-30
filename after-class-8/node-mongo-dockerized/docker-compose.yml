@@ -1,0 +1,38 @@
+version: "3.0"
+
+# Services to run
+services:
+  mongo: # name of BD service
+    image: mongo
+    container_name: mongo_db_after8
+    ports:
+      - 27017:27017
+    volumes:
+      - mongoafter8:/data/configdb
+      - mongoafter8:/data/db
+    # restart: always
+    networks:
+      - nodejs-network
+
+  api_art:
+    build: .
+    container_name: api_art_node
+    ports:
+      # local --> contenedor
+      - 5000:5000
+    depends_on:
+      - mongo
+    restart: always
+    # creacion del volumen para que se actualice el contenedor mientras estemos desarrollando
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - nodejs-network
+
+networks:
+  nodejs-network:
+    name: nodejs-network
+    driver: bridge
+
+volumes:
+  mongoafter8:
