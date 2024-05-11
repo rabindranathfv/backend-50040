@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: kubecontainer
-          image: rabindranathfv/node-mongo-dockerized-kube-v3:3.0.0
+          image: rabindranathfv/node-mongo-kb:1.0.0
           ports:
             - containerPort: 6000
           env:
