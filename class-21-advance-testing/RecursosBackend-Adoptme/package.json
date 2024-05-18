@@ -8,6 +8,7 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "test": "mocha test/supertest.test.js",
+    "test:utils": "mocha test/utils/index.test.js",
     "test:cycle": "mocha test/lifecycle-test.spec.js",
     "test:single": "mocha --watch --timeout 30000"
   },
