@@ -1,67 +1,84 @@
-import mongoose from "mongoose";
-import Assert from "assert";
-import Users from "../../src/dao/Users.dao.js";
+import { expect } from "chai";
+import supertest from "supertest";
 
-const PORT_APP = Number(PORT) || 5000;
-// const DB_HOST_ENV = "mongodb";
-const DB_HOST_ENV = "localhost";
-const DB_PORT = 27017;
-const DB_NAME = "MongoDBAdoptMe";
+const BASE_API_URL = "http://localhost:5000";
+const PETS_ROUTE = "/api/pets";
 
-export const MONGO_URL = `mongodb://${DB_HOST_ENV}:${DB_PORT}/${DB_NAME}`;
+describe("Functional test for Pets ENDPOINTS", () => {
+  let requester;
 
-mongoose
-  .connect(`${MONGO_URL}`)
-  .then((conn) => {
-    console.log(`🚀 ~ CONECT WITH MONGO URL TEST:`);
-  })
-  .catch((err) => {
-    console.log("🚀 ~ TESTs err: ", err);
+  beforeEach(() => {
+    requester = supertest(`${BASE_API_URL}`);
   });
 
-const assert = Assert.strict;
+  it("should POST /api/pests create a pet successfully with code 200 ", async () => {
+    const bodyPet = {
+      name: "Marcelo2",
+      specie: "Perro2",
+      birthDate: new Date(),
+      image: "",
+    };
 
-describe("User dao tests cases", () => {
-  before(function () {
-    console.log("Before");
-    this.usersDao = new Users();
+    const { statusCode, ok, _body } = await requester
+      .post(`${PETS_ROUTE}`)
+      .send(bodyPet);
+
+    expect(ok).to.be.true;
+    expect(statusCode).to.eq(200);
+    expect(_body.payload).to.have.property("_id");
+    expect(_body.payload.adopted).to.be.false;
   });
 
-  beforeEach(function () {
-    console.log("before each TEST!!!");
-    this.timeout(5000);
+  it("should POST /api/pests create a pet without the name and it will return 400 ", async () => {
+    const bodyPet = {
+      specie: "Perro2",
+      birthDate: new Date(),
+      image: "",
+    };
+
+    const { statusCode, ok, _body } = await requester
+      .post(`${PETS_ROUTE}`)
+      .send(bodyPet);
+
+    expect(ok).to.be.false;
+    expect(statusCode).to.eq(400);
+    expect(_body).to.deep.equals({
+      status: "error",
+      error: "Incomplete values",
+    });
   });
 
-  after(function () {
-    console.log("AFTER");
+  it("should GET /api/pests create a pet successfully with code 200", async () => {
+    const { statusCode, ok, _body } = await requester.get(`${PETS_ROUTE}`);
+
+    expect(ok).to.be.true;
+    expect(statusCode).to.eq(200);
+    expect(_body.status).to.equal("success");
+    expect(Array.isArray(_body.payload)).to.be.true;
   });
 
-  afterEach(function () {
-    console.log("after each TEST - F");
-  });
+  it("should DELETE /api/pests/:pid with pet successfully with code 200", async () => {
+    const bodyPet = {
+      name: "felipe",
+      specie: "loro",
+      birthDate: new Date(),
+      image: "",
+    };
 
-  it("should get all Users", async function () {
-    console.log(this.usersDao);
+    const { _body: newPet } = await requester
+      .post(`${PETS_ROUTE}`)
+      .send(bodyPet);
+    expect(newPet.payload).to.have.property("_id");
 
-    const result = await this.usersDao.get();
-    console.log("🚀 ~ file: user.test.js:47 ~ result:", result);
-
-    assert.strictEqual(Array.isArray(result), true);
-  });
-
-  it("should get all Users is empty", async function () {
-    console.log(this.usersDao);
-
-    const result = await this.usersDao.get();
-    console.log("🚀 ~ file: user.test.js:47 ~ result:", result);
-
-    assert.strictEqual(Array.isArray(result), true);
-    // TODO verificar que no haya usuarios
-  });
-
-  describe("getBy id cases", () => {
-    it("should get all Users", async function () {
-      console.log(this.usersDao);
+    const petIdMock = newPet.payload._id;
+    const { statusCode, ok, _body } = await requester.delete(
+      `${PETS_ROUTE}/${petIdMock}`
+    );
+    expect(ok).to.be.true;
+    expect(statusCode).to.eq(200);
+    expect(_body).to.deep.equals({
+      status: "success",
+      message: "pet deleted",
     });
   });
 });
