@@ -10,7 +10,9 @@
     "test": "mocha test/supertest.test.js",
     "test:utils": "mocha test/utils/index.test.js",
     "test:cycle": "mocha test/lifecycle-test.spec.js",
-    "test:single": "mocha --watch --timeout 30000"
+    "test:single": "mocha --watch --timeout 30000",
+    "test:pets-dao": "mocha test/dao/pet.dao.test.js",
+    "test:user-dao": "mocha test/dao/user.dao.test.js"
   },
   "keywords": [],
   "author": "",
