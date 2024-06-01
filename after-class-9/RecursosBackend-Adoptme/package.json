@@ -1,0 +1,38 @@
+{
+  "name": "plantilladocumentacion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "cross-env NODE_ENV=production MONGO_URI=mongodb+srv://rabin:3OnnAhgTd3jJ3rp2@clustercoffedb.r82zt.gcp.mongodb.net/ nodemon src/app.js",
+    "test": "mocha test/supertest.test.js",
+    "test:utils": "mocha test/utils/index.test.js",
+    "test:cycle": "mocha test/lifecycle-test.spec.js",
+    "test:single": "mocha --watch --timeout 30000",
+    "test:pets-dao": "mocha test/dao/pet.dao.test.js",
+    "test:user-dao": "mocha test/dao/user.dao.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.7.5",
+    "multer": "^1.4.5-lts.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.4.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.0.0"
+  }
+}

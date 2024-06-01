@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  # nombre del servicio
+  mongodb:
+    image: mongo
+    container_name: mongo_db_container_adoptme
+    ports:
+      # local --> contenedor
+      - 27017:27017
+    # restart: always
+    volumes:
+      - mongodockeradoptme:/data/configdb
+      - mongodockeradoptme:/data/db
+
+  api:
+    build: .
+    container_name: api_container_adoptme
+    ports:
+      # local --> contenedor
+      - 5000:5000
+    depends_on:
+      - mongodb
+    # restart: always
+    # opcional ya que ayuda a desarrollar con el docker compose ejecutandose
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  mongodockeradoptme:

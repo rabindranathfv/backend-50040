@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubeserviceadoptme
+spec:
+  selector:
+    app: adoptmekb
+  ports:
+    - port: 60
+      targetPort: 5000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubedeployadoptme
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: adoptmekb
+  template:
+    metadata:
+      labels:
+        app: adoptmekb
+    spec:
+      containers:
+        - name: kubecontainer
+          image: rabindranathfv/adoptme-kb:1.0.2
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: NODE_ENV
+              value: production
+            - name: DB_HOST
+              value: mongodb
+            - name: MONGO_URI
+              value: mongodb+srv://rabin:3OnnAhgTd3jJ3rp2@clustercoffedb.r82zt.gcp.mongodb.net/
+          imagePullPolicy: Always
