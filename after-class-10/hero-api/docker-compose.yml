@@ -1,0 +1,14 @@
+version: '3.0'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo_nest_hero_container
+    ports:
+      - 27017:27017
+    volumes:
+      - mongonestherodb:/data/configdb
+      - mongonestherodb:/data/db
+
+volumes:
+  mongonestherodb:
